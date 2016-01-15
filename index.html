@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+
+        <title>bitmap font renderer</title>
+
+        <style>
+            body {
+                padding: 0;
+                margin: 0;
+                background-color: #DDD;
+            }
+
+            canvas {
+                border: 1px solid #040;
+            }
+        </style>
+    </head>
+
+    <body>
+        <script src="bitmapFontRenderer.js"></script>
+        <script>
+            setTimeout(function() {
+                bitmapFontRenderer({
+                    font: 'DeterminationMonoWeb',
+                    ext: 'woff',
+                    size: 40,
+                    color: '#FFF',
+                    splitColor: '#F0F',
+                    splitW: 2,
+                    gap: 1,
+                    characters: ' abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789,.!?;:-_/|\\!\'"+*()[]{}&%$#@',
+                    draw: function(c, ch, x, y, o) {
+                        c.fillStyle = '#00F';
+                        c.fillText(ch, x-2, y);
+                        c.fillText(ch, x+2, y);
+                        c.fillText(ch, x, y-2);
+                        c.fillText(ch, x, y+2);
+                        c.fillStyle = o.color;
+                        c.fillText(ch, x, y);
+                    }
+                });
+            }, 500);
+        </script>
+    </body>
+</html>
