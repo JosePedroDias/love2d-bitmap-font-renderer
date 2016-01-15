@@ -21,22 +21,24 @@
     <body>
         <script src="bitmapFontRenderer.js"></script>
         <script>
+            var s = 2;
             setTimeout(function() {
                 bitmapFontRenderer({
                     font: 'DeterminationMonoWeb',
                     ext: 'woff',
-                    size: 40,
+                    size: 20*s,
                     color: '#FFF',
                     splitColor: '#F0F',
-                    splitW: 2,
-                    gap: 1,
+                    splitW: s,
+                    gap: s,
                     characters: ' abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789,.!?;:-_/|\\!\'"+*()[]{}&%$#@',
+                    //roundTo: 64,
                     draw: function(c, ch, x, y, o) {
                         c.fillStyle = '#00F';
-                        c.fillText(ch, x-2, y);
-                        c.fillText(ch, x+2, y);
-                        c.fillText(ch, x, y-2);
-                        c.fillText(ch, x, y+2);
+                        c.fillText(ch, x-s, y);
+                        c.fillText(ch, x+s, y);
+                        c.fillText(ch, x, y-s);
+                        c.fillText(ch, x, y+s);
                         c.fillStyle = o.color;
                         c.fillText(ch, x, y);
                     }

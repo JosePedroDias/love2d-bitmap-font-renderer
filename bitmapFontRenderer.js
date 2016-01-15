@@ -1,3 +1,7 @@
+function round(n, mult) {
+    return Math.ceil(n / mult) * mult;
+}
+
 function bitmapFontRenderer(o) {
     'use strict';
 
@@ -27,7 +31,7 @@ function bitmapFontRenderer(o) {
     var y = gap;
 
     c.fillStyle = o.splitColor;
-    c.fillRect(x, y, dx, o.size);
+    c.fillRect(x, y-gap, dx, o.size+gap*2);
     x += dx;
 
     o.characters.split('').forEach(function(ch) {
@@ -47,15 +51,23 @@ function bitmapFontRenderer(o) {
         x += gap;
 
         c.fillStyle = o.splitColor;
-        c.fillRect(x+w, y, dx, o.size);
+        c.fillRect(x+w, y-gap, dx, o.size+gap*2);
 
         x += w + dx;
     });
 
     // trim
     var el2 = document.createElement('canvas');
-    el2.setAttribute('width', x);
-    el2.setAttribute('height', o.size + o.gap*2);
+
+    var W = x;
+    var H = o.size + o.gap*2;
+    if (o.roundTo) {
+        W = round(W, o.roundTo);
+        H = round(H, o.roundTo);
+    }
+    
+    el2.setAttribute('width', W);
+    el2.setAttribute('height', H);
     var c2 = el2.getContext('2d');
     c2.drawImage(el, 0, 0);
     document.body.removeChild(el);
