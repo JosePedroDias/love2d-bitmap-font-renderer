@@ -29,32 +29,54 @@ function bitmapFontRenderer(o) {
     var dx = o.splitW;
     var gap = o.gap;
     var y = gap;
+    var chars = o.characters.split('');
 
-    c.fillStyle = o.splitColor;
-    c.fillRect(x, y-gap, dx, o.size+gap*2);
-    x += dx;
 
-    o.characters.split('').forEach(function(ch) {
-        x += gap;
+    // font rendering pass
+    if (o.color) {
+        x += dx;
 
-        c.fillStyle = o.color;
+        chars.forEach(function(ch) {
+            x += gap;
 
-        if (o.draw) {
-            o.draw(c, ch, x, y, o);
-        }
-        else {
-            c.fillText(ch, x, y);
-        }
+            c.fillStyle = o.color;
 
-        var w = c.measureText(ch).width;
+            if (o.draw) {
+                o.draw(c, ch, x, y, o);
+            }
+            else {
+                c.fillText(ch, x, y);
+            }
 
-        x += gap;
+            var w = c.measureText(ch).width;
+
+            x += gap + w + dx;
+        });
+    }
+
+
+    // split overlay pass
+    if (o.splitColor) {
+        x = 0;
 
         c.fillStyle = o.splitColor;
-        c.fillRect(x+w, y-gap, dx, o.size+gap*2);
+        c.fillRect(x, y-gap, dx, o.size+gap*2);
+        x += dx;
 
-        x += w + dx;
-    });
+        chars.forEach(function(ch) {
+            x += gap;
+
+            var w = c.measureText(ch).width;
+
+            x += gap;
+
+            c.fillStyle = o.splitColor;
+            c.fillRect(x+w, y-gap, dx, o.size+gap*2);
+
+            x += w + dx;
+        });
+    }
+
 
     // trim
     var el2 = document.createElement('canvas');
@@ -65,7 +87,7 @@ function bitmapFontRenderer(o) {
         W = round(W, o.roundTo);
         H = round(H, o.roundTo);
     }
-    
+
     el2.setAttribute('width', W);
     el2.setAttribute('height', H);
     var c2 = el2.getContext('2d');
