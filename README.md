@@ -1,6 +1,7 @@
 A [bitmap font renderer](https://love2d.org/wiki/love.graphics.newImageFont) for [love2d](https://love2d.org/) 0.10 using canvas and JS.
 
-For the time being, works on Firefox only.
+For the time being, works on Firefox only.  
+If you get sans-serif please refresh the page O:)
 
 The font used in the example comes from here:  
 <https://www.behance.net/gallery/31268855/Determination-Better-Undertale-Font>
