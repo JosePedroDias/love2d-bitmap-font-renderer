@@ -5,13 +5,31 @@ function round(n, mult) {
 function bitmapFontRenderer(o) {
     'use strict';
 
+    var rule = [
+        "@font-face {\n",
+            "font-family: '", o.font, "';\n",
+            "src: url('", o.font, ".", o.ext, "') format('", o.ext, "');\n",
+        "}"
+    ].join('');
+
+    var styleEl = document.createElement('style');
+    document.head.appendChild(styleEl);
+    var styleSheet = styleEl.sheet;
+    styleSheet.insertRule(rule, 0);
+
     // VERY HACKY STUFF SO CHROME PLAYS NICE
+    var testerDiv = document.createElement('div');
+    testerDiv.appendChild( document.createTextNode( o.characters ) );
+    testerDiv.style.fontFamily = o.font;
+    document.body.appendChild(testerDiv);
+
     var img = new Image();
     img.src = o.font + '.' + o.ext;
     img.onerror = function() {
-        var testerEl = document.querySelector('#woff-tester');
-        testerEl.parentNode.removeChild(testerEl);
-        letsGo();
+        setTimeout(function() {
+            testerDiv.parentNode.removeChild(testerDiv);
+            letsGo();
+        }, 500);
     }
 
     function letsGo() {

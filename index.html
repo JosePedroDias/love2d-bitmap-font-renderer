@@ -6,10 +6,6 @@
         <title>bitmap font renderer</title>
 
         <style>
-            @font-face {
-                font-family: 'DeterminationMonoWeb'; src: url('DeterminationMonoWeb.woff') format('woff');
-            }
-
             body {
                 padding: 0;
                 margin: 0;
@@ -19,15 +15,21 @@
             canvas {
                 border: 1px solid #040;
             }
-
-            #woff-tester {
-                font-family: DeterminationMonoWeb;
-            }
         </style>
     </head>
 
     <body>
-        <div id="woff-tester">test</div>
+        <style>
+            #fork { display: block; width: 200px; transform-origin: 0 0; transform: rotate(45deg); height: 200px; position: fixed; top: -20px; right: -120px; }
+            #fork a{background:#000;color:#fff;text-decoration:none;font-family:arial,sans-serif;text-align:center;font-weight:bold;padding:5px 40px;font-size:1rem;line-height:2rem;position:relative;transition:0.5s;}
+            #fork a:hover{background:#c11;color:#fff;}
+            #fork a::before,
+            #fork a::after{content:"";width:100%;display:block;position:absolute;top:1px;left:0;height:1px;background:#fff;}
+            #fork a::after{bottom:1px;top:auto;}
+        </style>
+        <span id="fork">
+            <a href="https://github.com/JosePedroDias/love2d-bitmap-font-renderer">Fork me</a>
+        </span>
 
         <script src="bitmapFontRenderer.js"></script>
         <script>
