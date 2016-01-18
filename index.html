@@ -6,6 +6,10 @@
         <title>bitmap font renderer</title>
 
         <style>
+            @font-face {
+                font-family: 'DeterminationMonoWeb'; src: url('DeterminationMonoWeb.woff') format('woff');
+            }
+
             body {
                 padding: 0;
                 margin: 0;
@@ -15,35 +19,39 @@
             canvas {
                 border: 1px solid #040;
             }
+
+            #woff-tester {
+                font-family: DeterminationMonoWeb;
+            }
         </style>
     </head>
 
     <body>
+        <div id="woff-tester">test</div>
+
         <script src="bitmapFontRenderer.js"></script>
         <script>
             var s = 2;
-            setTimeout(function() {
-                bitmapFontRenderer({
-                    font: 'DeterminationMonoWeb',
-                    ext: 'woff',
-                    size: 20*s,
-                    color: '#FFF',
-                    splitColor: '#F0F',
-                    splitW: s,
-                    gap: s,
-                    characters: ' abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789,.!?;:-_/|\\!\'"+*()[]{}&%$#@',
-                    //roundTo: 64,
-                    draw: function(c, ch, x, y, o) {
-                        c.fillStyle = '#00F';
-                        c.fillText(ch, x-s, y);
-                        c.fillText(ch, x+s, y);
-                        c.fillText(ch, x, y-s);
-                        c.fillText(ch, x, y+s);
-                        c.fillStyle = o.color;
-                        c.fillText(ch, x, y);
-                    }
-                });
-            }, 500);
+            bitmapFontRenderer({
+                font: 'DeterminationMonoWeb',
+                ext: 'woff',
+                size: 20*s,
+                color: '#FFF',
+                splitColor: '#F0F',
+                splitW: s,
+                gap: s,
+                characters: ' abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789,.!?;:-_/|\\!\'"+*()[]{}&%$#@',
+                //roundTo: 64,
+                draw: function(c, ch, x, y, o) {
+                    c.fillStyle = '#00F';
+                    c.fillText(ch, x-s, y);
+                    c.fillText(ch, x+s, y);
+                    c.fillText(ch, x, y-s);
+                    c.fillText(ch, x, y+s);
+                    c.fillStyle = o.color;
+                    c.fillText(ch, x, y);
+                }
+            });
         </script>
     </body>
 </html>
